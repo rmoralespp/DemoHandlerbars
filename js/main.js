@@ -8,10 +8,12 @@ Objeto = {
 
 let init = function(){
     let source   = $("#template").html();
-    let template = Handlebars.compile(source)
+    let template = Handlebars.compile(source);
     objeto = Objeto.init()
     objeto.template = template;
-    loadPaises();
+    loadTemplates(template);
+   
+    
 }
 
 
@@ -31,26 +33,24 @@ let loadPaises = function(idioma = 'en'){
         dataType: "JSON",
      });
     if(template){
-        render(http_api, template);
+        render_http(http_api, template);
     }
    
 }
 
 
 
-
-
-
-
-
-let render = function(http, template, template_parent= $("#contenido")){
-      
+let render_http = function(http, template, template_parent= $("#contenido")){   
     http.done(
             (data) => {
-                context = { 'paises':data }
+                context = {'paises':data }
                 let html = template(context);
                 template_parent.html(html);
-        })
-        
-     
+        })  
     }
+
+
+let render = function(template, template_parent= $("#contenido")){
+    let html = template({'paises':[]});
+    template_parent.html(html);
+}
