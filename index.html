@@ -14,34 +14,55 @@
     <link rel="stylesheet" href="css/estilos.css">
     <script src="./js/main.js"></script>
 </head>
-<body>
- <div class="container" id="contenido"></div>
+<body> 
+       
+        <div class="container" >
+                <ul class="nav nav-pills">
+                        <li class="active"><a data-toggle="pill" href="#paises" onclick="loadPaises()">Paises</a></li>
+                        <li><a data-toggle="pill" href="#regiones" onclick="loadPaises('es')">Paises Esp.</a></li>
+                        
+                </ul>
 
-<script id="template" type="text/x-handlebars-template">
-    
-    <div class="panel panel-default">
-            <div class="panel-heading">Paises</div>
-            <div class="panel-body">
-              <table class="table table-hover">
-                  <thead>
-                      <th>Nombre</th>
-                      <th>Capital</th>
-                      <th>Region</th>
-                      <th>Poblacion</th>
-                  </thead>
-                  <tbody>
-                        {{#each paises}}
-                            <tr>
-                                <th>{{ this.name }}</th>
-                                <th>{{ this.capital }}</th>
-                                <th>{{ this.region }}</th>
-                                <th>{{ this.population }}</th>
-                            </tr>
-                        {{/each}}
-                  </tbody>
-              </table>
+                <div id="contenido"></div>
+        </div>
+
+<script id="template" type="text/x-handlebars-template">    
+        <div class="tab-content">
+            
+            <div id="paises" class="tab-pane fade in active">
+                    <div class="panel panel-default">
+                            <div class="panel-body">
+                              <table class="table table-hover">
+                                  <thead>
+                                      <th>Nombre</th>
+                                      <th>Capital</th>
+                                      <th>Region</th>
+                                      <th>Poblacion</th>
+                                  </thead>
+                                  <tbody>
+                                        {{#each paises}}
+                                            <tr>
+                                                <th>{{ this.name }}</th>
+                                                <th>{{ this.capital }}</th>
+                                                <th>{{ this.region }}</th>
+                                                <th>{{ this.population }}</th>
+                                            </tr>
+                                        {{/each}}
+                                  </tbody>
+                              </table>
+                            </div>
+                    </div>
+            
             </div>
-    </div>
+            
+            <div id="regiones" class="tab-pane fade">
+              <h3>Menu 1</h3>
+              <p>Some content in menu 1.</p>
+            </div>
+           
+        </div>
+    
+    
 </script>
     
 </body>

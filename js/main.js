@@ -1,40 +1,56 @@
+
 $(() => init());
+
+Objeto = {
+    init: function(){return this;}
+}
 
 
 let init = function(){
-   let source   = $("#template").html();
-   let template = compileTemplate(source)
-   loadPaises(template);
+    let source   = $("#template").html();
+    let template = Handlebars.compile(source)
+    objeto = Objeto.init()
+    objeto.template = template;
+    loadPaises();
 }
 
 
-let compileTemplate = function(source){
-    let template = Handlebars.compile(source);
-    return template
-}
 
 
-let loadPaises = function(template){
-    let api_url = "https://restcountries.eu/rest/v2/all";
-    
+let loadPaises = function(idioma = 'en'){
+    template = Objeto.template || null;
+    idiomas = {
+        'en': "https://restcountries.eu/rest/v2/all",
+        'es': "https://restcountries.eu/rest/v2/lang/es",
+    }
+    let api_url = idiomas[idioma];
        
     let http_api = $.ajax({
         url: api_url,
         method: 'GET',
         dataType: "JSON",
      });
-
-    render(http_api, template)
+    if(template){
+        render(http_api, template);
+    }
+   
 }
+
+
+
+
+
+
+
 
 let render = function(http, template, template_parent= $("#contenido")){
       
     http.done(
-        (data) => {
-            context = { 'paises':data }
-            let html = template(context);
-            template_parent.append(html);
-        }
-    )
+            (data) => {
+                context = { 'paises':data }
+                let html = template(context);
+                template_parent.html(html);
+        })
+        
      
     }
